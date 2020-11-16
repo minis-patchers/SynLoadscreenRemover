@@ -1,0 +1,7 @@
+{
+  "Nickname": "SynLoadScreenRemover",
+  "Visibility": "Exclude",
+  "OneLineDescription": "Removes the 3d objects from loadscreens",
+  "LongDescription": "",
+  "PreferredAutoVersioning": "Default"
+}

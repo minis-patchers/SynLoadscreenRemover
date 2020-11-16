@@ -29,7 +29,7 @@ namespace SynLoadScreenRemover
             foreach(var ls in state.LoadOrder.PriorityOrder.OnlyEnabled().LoadScreen().WinningOverrides()) {
                 var nls = state.PatchMod.LoadScreens.GetOrAddAsOverride(ls);
                 nls.LoadingScreenNif = stat.FormKey;
-                if(JOBJ.RemoveLoreText) {
+                if(JOBJ?.RemoveLoreText??false) {
                     nls.Description = "";
                 }
             }

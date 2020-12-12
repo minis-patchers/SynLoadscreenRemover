@@ -1,5 +1,5 @@
 namespace SynLoadScreenRemover.Types {
-    public class config {
-        public bool RemoveLoreText = true;
+    public struct Settings {
+        public bool RemoveLoreText;
     }
 }

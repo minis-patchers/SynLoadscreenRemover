@@ -24,7 +24,7 @@ namespace SynLoadScreenRemover
         }
         public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
-            var JOBJ = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "settings.json"))).ToObject<config>();
+            var JOBJ = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "settings.json"))).ToObject<Settings>();
             var stat = state.PatchMod.Statics.AddNew("None");
             foreach(var ls in state.LoadOrder.PriorityOrder.OnlyEnabled().LoadScreen().WinningOverrides()) {
                 var nls = state.PatchMod.LoadScreens.GetOrAddAsOverride(ls);

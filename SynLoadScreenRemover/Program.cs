@@ -26,10 +26,10 @@ namespace SynLoadScreenRemover
         {
             var JOBJ = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "settings.json"))).ToObject<Settings>();
             var stat = state.PatchMod.Statics.AddNew("None");
-            foreach(var ls in state.LoadOrder.PriorityOrder.OnlyEnabled().LoadScreen().WinningOverrides()) {
+            foreach(var ls in state.LoadOrder.PriorityOrder.LoadScreen().WinningOverrides()) {
                 var nls = state.PatchMod.LoadScreens.GetOrAddAsOverride(ls);
                 nls.LoadingScreenNif = stat.FormKey;
-                if(JOBJ?.RemoveLoreText??false) {
+                if(JOBJ.RemoveLoreText) {
                     nls.Description = "";
                 }
             }

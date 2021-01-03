@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System.IO;
-using Mutagen.Bethesda.Synthesis;
+﻿using System.IO;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Mutagen.Bethesda;
+using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using SynLoadScreenRemover.Types;
 
@@ -9,12 +10,9 @@ namespace SynLoadScreenRemover
 {
     class Program
     {
-        public static int Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
-            return SynthesisPipeline.Instance.Patch<ISkyrimMod, ISkyrimModGetter>(
-                args: args,
-                patcher: RunPatch,
-                new UserPreferences() {
+            return await SynthesisPipeline.Instance.AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch).Run(args, new RunPreferences() {
                 ActionsForEmptyArgs = new RunDefaultPatcher
                 {
                     IdentifyingModKey = "SynLSR.esp",
@@ -22,7 +20,7 @@ namespace SynLoadScreenRemover
                 }
             });
         }
-        public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             var JOBJ = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "settings.json"))).ToObject<Settings>();
             var stat = state.PatchMod.Statics.AddNew("None");

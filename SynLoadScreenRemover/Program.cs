@@ -8,11 +8,12 @@ using SynLoadScreenRemover.Types;
 
 namespace SynLoadScreenRemover
 {
-    class Program
+    internal class Program
     {
         public static async Task<int> Main(string[] args)
         {
-            return await SynthesisPipeline.Instance.AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch).Run(args, new RunPreferences() {
+            return await SynthesisPipeline.Instance.AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch).Run(args, new RunPreferences()
+            {
                 ActionsForEmptyArgs = new RunDefaultPatcher
                 {
                     IdentifyingModKey = "SynLSR.esp",
@@ -24,10 +25,12 @@ namespace SynLoadScreenRemover
         {
             var JOBJ = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "settings.json"))).ToObject<Settings>();
             var stat = state.PatchMod.Statics.AddNew("None");
-            foreach(var ls in state.LoadOrder.PriorityOrder.LoadScreen().WinningOverrides()) {
+            foreach (var ls in state.LoadOrder.PriorityOrder.LoadScreen().WinningOverrides())
+            {
                 var nls = state.PatchMod.LoadScreens.GetOrAddAsOverride(ls);
                 nls.LoadingScreenNif = stat.FormKey;
-                if(JOBJ.RemoveLoreText) {
+                if (JOBJ.RemoveLoreText)
+                {
                     nls.Description = "";
                 }
             }

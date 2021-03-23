@@ -12,15 +12,12 @@ namespace SynLoadScreenRemover
     {
         public static async Task<int> Main(string[] args)
         {
-            return await SynthesisPipeline.Instance.AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch).Run(args, new RunPreferences()
-            {
-                ActionsForEmptyArgs = new RunDefaultPatcher
-                {
-                    IdentifyingModKey = "SynLSR.esp",
-                    TargetRelease = GameRelease.SkyrimSE
-                }
-            });
+            return await SynthesisPipeline.Instance
+                .AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch)
+                .SetTypicalOpen(GameRelease.SkyrimSE, "SynLSR.esp")
+                .Run(args);
         }
+
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             var JOBJ = JObject.Parse(File.ReadAllText(Path.Combine(state.ExtraSettingsDataPath, "settings.json"))).ToObject<Settings>();
@@ -28,7 +25,7 @@ namespace SynLoadScreenRemover
             foreach (var ls in state.LoadOrder.PriorityOrder.LoadScreen().WinningOverrides())
             {
                 var nls = state.PatchMod.LoadScreens.GetOrAddAsOverride(ls);
-                nls.LoadingScreenNif = stat.FormKey;
+                nls.LoadingScreenNif.SetTo(stat);
                 if (JOBJ.RemoveLoreText)
                 {
                     nls.Description = "";

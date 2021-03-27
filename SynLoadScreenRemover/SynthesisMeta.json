@@ -3,5 +3,6 @@
   "Visibility": "Visible",
   "OneLineDescription": "Removes the 3d objects from loadscreens",
   "LongDescription": "",
-  "PreferredAutoVersioning": "Default"
+  "PreferredAutoVersioning": "Default",
+  "RequiredMods": []
 }

@@ -1,13 +1,9 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using System.Threading.Tasks;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using SynLoadScreenRemover.Types;
-using Mutagen.Bethesda.Oblivion.Internals;
 using System;
-using System.Configuration;
 
 namespace SynLoadScreenRemover
 {

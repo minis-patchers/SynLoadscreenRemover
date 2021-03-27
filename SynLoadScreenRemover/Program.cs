@@ -4,6 +4,7 @@ using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using SynLoadScreenRemover.Types;
 using System;
+using Noggog;
 
 namespace SynLoadScreenRemover
 {
@@ -23,7 +24,7 @@ namespace SynLoadScreenRemover
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             var stat = state.PatchMod.Statics.AddNew("None");
-            foreach (var ls in state.LoadOrder.PriorityOrder.LoadScreen().WinningOverrides())
+            state.LoadOrder.PriorityOrder.LoadScreen().WinningOverrides().ForEach(ls =>
             {
                 var nls = state.PatchMod.LoadScreens.GetOrAddAsOverride(ls);
                 nls.LoadingScreenNif.SetTo(stat);
@@ -31,7 +32,7 @@ namespace SynLoadScreenRemover
                 {
                     nls.Description = "";
                 }
-            }
+            });
         }
     }
 }

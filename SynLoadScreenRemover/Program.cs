@@ -11,7 +11,7 @@ namespace SynLoadScreenRemover
     internal class Program
     {
         static Lazy<Settings> LazySettings = new();
-        static Settings config => LazySettings.Value;
+        static Settings Config => LazySettings.Value;
         public static async Task<int> Main(string[] args)
         {
             return await SynthesisPipeline.Instance
@@ -28,7 +28,7 @@ namespace SynLoadScreenRemover
             {
                 var nls = state.PatchMod.LoadScreens.GetOrAddAsOverride(ls);
                 nls.LoadingScreenNif.SetTo(stat);
-                if (config.RemoveLoreText)
+                if (Config.RemoveLoreText)
                 {
                     nls.Description = "";
                 }
